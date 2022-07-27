@@ -27,7 +27,7 @@ def get_prod_db():
     return prod_db
 
 def listener(event):
-    db.reference("https://phlask-pyrebase-default-rtdb.firebaseio.com/phlask-struct/phlask-web-map").set(False)
+    db.reference("https://phlask-pyrebase-default-rtdb.firebaseio.com/phlask-struct/phlask-web-map")
 
 # If there is a change in the database, run the listener function
 def listen_db():
