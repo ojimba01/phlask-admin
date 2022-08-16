@@ -114,3 +114,7 @@ def delete_node(ref):
 # deletes all nodes in the ref DB
 #----------------------------------------------------------------------------------------------------------------------
 
+# add new nodes to DB
+
+def add_to_db(ref, data):
+    ref.push(data)
