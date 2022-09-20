@@ -1,3 +1,4 @@
+from gc import get_count
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
@@ -10,48 +11,95 @@ prod_water_url_live = "https://phlask-web-map-prod-water-live.firebaseio.com/"
 prod_water_url_verify = "https://phlask-web-map-prod-water-verify.firebaseio.com/"
 prod_food_url_live = 'https://phlask-web-map-prod-food-live.firebaseio.com/'
 prod_food_url_verify = 'https://phlask-web-map-food-hours.firebaseio.com/'
-# Beta database URL's for all of the beta databases (These URL are dummys for now) please replace with actual URLs when ready
+prod_forage_url_live = "https://phlask-web-map-prod-foraging-live.firebaseio.com/"
+prod_forage_url_verify = 'https://phlask-web-map-prod-foraging-verify.firebaseio.com/'
+prod_bathroom_url_live = "https://phlask-web-map-prod-bathroom-live.firebaseio.com/"
+prod_bathroom_url_verify = "https://phlask-web-map-prod-bathroom-verify.firebaseio.com/"
+#----------------------------------------------------------------------------------------------------------------------
+# Beta database URL's 
 beta_water_url_live = "https://phlask-web-map-beta-water-live.firebaseio.com/"
 beta_water_url_verify = "https://phlask-web-map-beta-water-verify.firebaseio.com/"
-beta_water_url = 'https://phlask-web-map-beta.firebaseio.com/'
-beta_forage_url = 'https://phlask-web-map-forage-beta.firebaseio.com/'
-beta_bathrooms_url = 'https://phlask-web-map-bathrooms-beta.firebaseio.com/'
-beta_food_url = 'https://phlask-web-map-food-hours-beta.firebaseio.com/'
+beta_food_url_live = 'https://phlask-web-map-beta-food-live.firebaseio.com/'
+beta_food_url_verify = 'https://phlask-web-map-beta-food-verify.firebaseio.com/'
+beta_forage_url_live = "https://phlask-web-map-beta-foraging-live.firebaseio.com/"
+beta_forage_url_verify = "https://phlask-web-map-beta-foraging-verify.firebaseio.com/"
+beta_bathroom_url_live = "https://phlask-web-map-beta-bathroom-live.firebaseio.com/"
+beta_bathroom_url_verify = "https://phlask-web-map-beta-bathroom-verify.firebaseio.com/"
 #----------------------------------------------------------------------------------------------------------------------
-cred = credentials.Certificate("phlask-web-map-firebase-adminsdk-i2ung-32bde7cd7a.json")
+# Test database URL's
+test_water_url_live = "https://phlask-web-map-test-water-live.firebaseio.com/"
+test_water_url_verify = "https://phlask-web-map-test-water-verify.firebaseio.com/"
+test_food_url_live = 'https://phlask-web-map-test-food-live.firebaseio.com/'
+test_food_url_verify = 'https://phlask-web-map-test-food-verify.firebaseio.com/'
+test_forage_url_live = "https://phlask-web-map-test-foraging-live.firebaseio.com/"
+test_forage_url_verify = "https://phlask-web-map-test-foraging-verify.firebaseio.com/"
+test_bathroom_url_live = "https://phlask-web-map-test-bathroom-live.firebaseio.com/"
+test_bathroom_url_verify = "https://phlask-web-map-test-bathroom-verify.firebaseio.com/"
+#----------------------------------------------------------------------------------------------------------------------
+#creds for initializing firebase admin
+cred = credentials.Certificate(r'C:\Users\Loaner\Desktop\cfp\phlask-admin\admin\phlask.json')
+#----------------------------------------------------------------------------------------------------------------------
+# initialize firebase admin Prod DB's
 pointer_init =  firebase_admin.initialize_app(cred, { 'databaseURL': pointer_url}, name="pointer_app")
 prod_water_live=firebase_admin.initialize_app(cred, { 'databaseURL': prod_water_url_live }, name="prod_water_live") #name is the app name
-prod_water_verify=firebase_admin.initialize_app(cred, { 'databaseURL': prod_water_url_verify }, name="prod_water_verify") #name is the app name
+prod_food_live=firebase_admin.initialize_app(cred, { 'databaseURL': prod_food_url_live }, name="prod_food_live") #name is the app name
+prod_forage_live=firebase_admin.initialize_app(cred, { 'databaseURL': prod_forage_url_live }, name="prod_forage_live") #name is the app name
+prod_bathroom_live=firebase_admin.initialize_app(cred, { 'databaseURL': prod_bathroom_url_live }, name="prod_bathroom_live") #name is the app name
+#----------------------------------------------------------------------------------------------------------------------
+# initialize firebase admin Beta DB's
 beta_water_live=firebase_admin.initialize_app(cred, { 'databaseURL': beta_water_url_live }, name="beta_water_live") #name is the app name
-beta_water_verify=firebase_admin.initialize_app(cred, { 'databaseURL': beta_water_url_verify }, name="beta_water_verify") #name is the app name
-# prod_forage=firebase_admin.initialize_app(cred, { 'databaseURL': prod_forage_url },  name="prod_forage") 
-# prod_bathrooms=firebase_admin.initialize_app(cred, { 'databaseURL': prod_bathrooms_url },  name="prod_bathrooms")
-prod_food_live=firebase_admin.initialize_app(cred, { 'databaseURL': prod_food_url_live },  name="prod_food_live")
-prod_food_verify=firebase_admin.initialize_app(cred, { 'databaseURL': prod_food_url_verify },  name="prod_food_verify")
+beta_food_live=firebase_admin.initialize_app(cred, { 'databaseURL': beta_food_url_live }, name="beta_food_live") #name is the app name
+beta_forage_live=firebase_admin.initialize_app(cred, { 'databaseURL': beta_forage_url_live }, name="beta_forage_live") #name is the app name
+beta_bathroom_live=firebase_admin.initialize_app(cred, { 'databaseURL': beta_bathroom_url_live }, name="beta_bathroom_live") #name is the app name
+#----------------------------------------------------------------------------------------------------------------------
+# initialize firebase admin Test DB's
+test_water_live=firebase_admin.initialize_app(cred, { 'databaseURL': test_water_url_live }, name="test_water_live") #name is the app name
+test_food_live=firebase_admin.initialize_app(cred, { 'databaseURL': test_food_url_live }, name="test_food_live") #name is the app name
+test_forage_live=firebase_admin.initialize_app(cred, { 'databaseURL': test_forage_url_live }, name="test_forage_live") #name is the app name
+test_bathroom_live=firebase_admin.initialize_app(cred, { 'databaseURL': test_bathroom_url_live }, name="test_bathroom_live") #name is the app name
 #----------------------------------------------------------------------------------------------------------------------
 # Database References for all of the prod databases
-pointer_db = db.reference("/", app= pointer_init)
+# pointer_db = db.reference("/", app= pointer_init)
 prod_water_db_live = db.reference('/', app= prod_water_live)
-prod_water_db_verify = db.reference('/', app= prod_water_verify)
-
-# prod_forage_db = db.reference('/', app=prod_forage)
-# prod_bathrooms_db = db.reference('/', app=prod_bathrooms)
-prod_food_db_live = db.reference('/', app=prod_food_live)
-prod_food_db_verify = db.reference('/', app=prod_food_verify)
+prod_food_db_live = db.reference('/', app= prod_food_live)
+prod_forage_db_live = db.reference('/', app= prod_forage_live)
+prod_bathroom_db_live = db.reference('/', app= prod_bathroom_live)
 #----------------------------------------------------------------------------------------------------------------------
+# Database References for all of the beta databases
+beta_water_db_live = db.reference('/', app= beta_water_live)
+beta_food_db_live = db.reference('/', app= beta_food_live)
+beta_forage_db_live = db.reference('/', app= beta_forage_live)
+beta_bathroom_db_live = db.reference('/', app= beta_bathroom_live)
 #----------------------------------------------------------------------------------------------------------------------
-# Database References for all of the beta databases (These Ref's are dummys for now) please replace with actual URLs when ready
-
-beta_water_db_live = db.reference('/', app=beta_water_live)
-beta_water_db_verify = db.reference('/', app=beta_water_verify)
-# beta_forage_db = db.reference('/', app=prod_forage)
-# beta_bathrooms_db = db.reference('/', app=prod_bathrooms)
-# beta_food_db = db.reference('/', app=prod_food)
+# Database References for all of the test databases
+test_water_db_live = db.reference('/', app= test_water_live)
+test_food_db_live = db.reference('/', app= test_food_live)
+test_forage_db_live = db.reference('/', app= test_forage_live)
+test_bathroom_db_live = db.reference('/', app= test_bathroom_live)
 #----------------------------------------------------------------------------------------------------------------------
-# Retrieves the nested data within the prod DBs 
-# Returns in the form of dictionaries in a list
+# Sandbox for data manipulation
 
-# print(get_db(prod_food_db_live))
-# print(get_db(pointer_db))
-update_db(prod_food_db_live, pointer_db)
+def update_beta_db():
+    update_db(beta_water_db_live, prod_water_db_live)
+    update_db(beta_food_db_live, prod_food_db_live)
+    update_db(beta_forage_db_live, prod_forage_db_live)
+    update_db(beta_bathroom_db_live, prod_bathroom_db_live)
+
+def update_test_db():
+    update_db(test_water_db_live, prod_water_db_live)
+    update_db(test_food_db_live, prod_food_db_live)
+    update_db(test_forage_db_live, prod_forage_db_live)
+    update_db(test_bathroom_db_live, prod_bathroom_db_live)
+
+def full_update():
+    update_beta_db()
+    update_test_db()
+
+print(get_db(prod_bathroom_db_live))
+
+#----------------------------------------------------------------------------------------------------------------------
+#Structure for targeting specific phlask DB's 
+# Ex: **[STATE]_[RESOURCE]_[DB]_[LIVE/VERIFY] -> prod_water_db_live or beta_food_db_verify
+# ** all characters must be lowercase **
+#----------------------------------------------------------------------------------------------------------------------
 

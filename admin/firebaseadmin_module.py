@@ -1,5 +1,4 @@
-from itertools import count
-from mimetypes import init
+
 from weakref import ref
 import firebase_admin
 from firebase_admin import credentials
@@ -8,7 +7,7 @@ from firebase_admin import db
 # Imports
 #----------------------------------------------------------------------------------------------------------------------
 
-cred = credentials.Certificate('firebase-sdk.json')
+cred = credentials.Certificate(r'C:\Users\Loaner\Desktop\cfp\phlask-admin\admin\phlask.json')
 firebase_admin.initialize_app(cred, { 'databaseURL': 'https://phlask-pyrebase-default-rtdb.firebaseio.com/' })
 #Dummy Firebase RTDB and Creditentials
 #----------------------------------------------------------------------------------------------------------------------
