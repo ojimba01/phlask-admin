@@ -4,6 +4,9 @@ from firebase_admin import credentials
 from firebase_admin import db
 from firebaseadmin_module import get_db, get_changed_data, db_dry_count, db_comparison, update_changed_db_iter, update_changed_db, update_db, update_db_iter
 from firebaseadmin_module import ListenerClass as ls
+
+#----------------------------------------------------------------------------------------------------------------------
+# DONT ALTER CONFIG CODE BELOW #
 #----------------------------------------------------------------------------------------------------------------------
 # Prod database URL's
 pointer_url = "https://phlask-web-map-food-hours.firebaseio.com/"
@@ -59,7 +62,6 @@ test_forage_live=firebase_admin.initialize_app(cred, { 'databaseURL': test_forag
 test_bathroom_live=firebase_admin.initialize_app(cred, { 'databaseURL': test_bathroom_url_live }, name="test_bathroom_live") #name is the app name
 #----------------------------------------------------------------------------------------------------------------------
 # Database References for all of the prod databases
-# pointer_db = db.reference("/", app= pointer_init)
 prod_water_db_live = db.reference('/', app= prod_water_live)
 prod_food_db_live = db.reference('/', app= prod_food_live)
 prod_forage_db_live = db.reference('/', app= prod_forage_live)
@@ -77,8 +79,10 @@ test_food_db_live = db.reference('/', app= test_food_live)
 test_forage_db_live = db.reference('/', app= test_forage_live)
 test_bathroom_db_live = db.reference('/', app= test_bathroom_live)
 #----------------------------------------------------------------------------------------------------------------------
-# Sandbox for data manipulation
+# DONT ALTER CONFIG CODE ABOVE #
+#----------------------------------------------------------------------------------------------------------------------
 
+# Active Code for AWS Lambda function
 def update_beta_db():
     update_db(beta_water_db_live, prod_water_db_live)
     update_db(beta_food_db_live, prod_food_db_live)
@@ -95,11 +99,12 @@ def full_update():
     update_beta_db()
     update_test_db()
 
-print(get_db(prod_bathroom_db_live))
+#Test code
+#print(get_db(prod_bathroom_db_live))
 
 #----------------------------------------------------------------------------------------------------------------------
 #Structure for targeting specific phlask DB's 
 # Ex: **[STATE]_[RESOURCE]_[DB]_[LIVE/VERIFY] -> prod_water_db_live or beta_food_db_verify
 # ** all characters must be lowercase **
 #----------------------------------------------------------------------------------------------------------------------
-
+#For more help refer to the firebaseadmin_module.py file for examples of how to use the functions
