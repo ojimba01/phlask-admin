@@ -1,4 +1,3 @@
-#Create a admin class for prod, beta, and test
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
@@ -35,7 +34,7 @@ test_bathroom_url_live = "https://phlask-web-map-test-bathroom-live.firebaseio.c
 test_bathroom_url_verify = "https://phlask-web-map-test-bathroom-verify.firebaseio.com/"
 #----------------------------------------------------------------------------------------------------------------------
 #creds for initializing firebase admin
-cred = credentials.Certificate(r'C:\Users\Loaner\Desktop\cfp\phlask-admin\admin_oop\phlask.json')
+
 # cred = credentials.Certificate('ENTER PATH TO FIREBASE CREDENTIALS HERE')
 firebase_admin.initialize_app(cred, { 'databaseURL': 'https://phlask-pyrebase-default-rtdb.firebaseio.com/' })
 #----------------------------------------------------------------------------------------------------------------------
