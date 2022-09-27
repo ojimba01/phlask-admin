@@ -14,6 +14,7 @@ firebase_admin.initialize_app(cred, { 'databaseURL': 'https://phlask-pyrebase-de
 def get_db(ref):
     ref_db = ref.get()
     return ref_db
+
 # EXAMPLE CALL (phlask_firebaseadmin): get_db(prod_water_db)
 # takes the ref DB(prod) and returns a list of dictionaries of the data in the database (referring to the ref DB)
 # this does not use any itereation reference and soley updates based of off how many nodes are in the DB.
@@ -25,12 +26,12 @@ class ListenerClass:
 
     def listener(self, event):
         ref.get()
-# listen_db()
 #----------------------------------------------------------------------------------------------------------------------
 def get_changed_data(ref,url):
     changed = ref.get_if_changed(url)
     changed_dict_list = changed[1]
     return changed_dict_list
+
 # EXAMPLE CALL (phlask_firebaseadmin): get_changed_data(prod_water_db, beta_water_url)
 # takes the ref DB(prod) and alt_ref's url DB(beta) and returns the data in the alt_ref DB if it is different from the ref DB.
 # Note this is different from the db_comparison() function which returns whether the ref DB and alt_ref DB are the same or not.
@@ -42,6 +43,7 @@ def db_dry_count(ref, url):
         if dict:
             count += 1
     print(count)
+
 # EXAMPLE CALL (phlask_firebaseadmin): db_dry_count(prod_water_db, beta_water_url)
 # takes the ref DB(prod) and alt_ref's url DB(beta) and prints a count of the nodes in the ref DB.
 #----------------------------------------------------------------------------------------------------------------------
@@ -52,6 +54,7 @@ def db_comparison(ref, alt_ref):
         print("The databases are the same")
     else:
         print("The databases are not the same")
+        
 # EXAMPLE CALL (phlask_firebaseadmin): db_comparison(prod_water_db, beta_water_db)
 # takes the ref DB(prod) and the alt_ref DB(beta) and prints whether the ref DB and alt_ref DB are the same or not.
 #----------------------------------------------------------------------------------------------------------------------

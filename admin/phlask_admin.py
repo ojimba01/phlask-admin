@@ -1,9 +1,9 @@
-from gc import get_count
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 from firebaseadmin_module import get_db, get_changed_data, db_dry_count, db_comparison, update_changed_db_iter, update_changed_db, update_db, update_db_iter
 from firebaseadmin_module import ListenerClass as ls
+# from admin_classes import prod_admin as pa
 
 #----------------------------------------------------------------------------------------------------------------------
 # DONT ALTER CONFIG CODE BELOW #
@@ -100,7 +100,8 @@ def full_update():
     update_test_db()
 
 #Test code
-#print(get_db(prod_bathroom_db_live))
+# print(get_db(prod_water_db_live))
+
 
 #----------------------------------------------------------------------------------------------------------------------
 #Structure for targeting specific phlask DB's 

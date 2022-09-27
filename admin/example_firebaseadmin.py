@@ -6,6 +6,7 @@ from firebase_admin import db
 cred = credentials.Certificate('firebase-sdk.json')
 firebase_admin.initialize_app(cred, { 'databaseURL': 'https://phlask-pyrebase-default-rtdb.firebaseio.com/' })
 
+# PLEASE LIMIT THE NUMBER OF CALLS TO FUNCTIONS THAT POPULATE THE DATABASES
 
 # Database References for the Beta and Prod DB
 Prod_database = db.reference('Phlask')
