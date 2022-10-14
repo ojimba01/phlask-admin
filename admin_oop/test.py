@@ -37,7 +37,6 @@ food_db_test=food_test.food_db_live
 bathroom_db_test=bathroom_test.bathroom_db_live
 forage_db_test=forage_test.forage_db_live
 
-#update beta db with prod db
 
 def update_beta():
     prod.update_db(water_db_beta,water_db_prod)
