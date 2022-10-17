@@ -1,6 +1,7 @@
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
+
 #----------------------------------------------------------------------------------------------------------------------
 # Prod database URL's
 pointer_url = "https://phlask-web-map-food-hours.firebaseio.com/"
@@ -138,6 +139,17 @@ class prod_admin:
             ref.child(node).delete()
     def add_to_db(ref, data):
         ref.push(data)
+    def get_tap(ref, tapnum):
+        taps = prod_admin.get_db(ref)
+        for tap in taps:
+            try:
+                if tap['tapnum'] == tapnum:
+                    return tap
+            except:
+                continue
+
+    
+                
 
 
 class beta_admin:
@@ -203,6 +215,14 @@ class beta_admin:
             ref.child(node).delete()
     def add_to_db(ref, data):
         ref.push(data)
+    def get_tap(ref, tapnum):
+        taps = beta_admin.get_db(ref)
+        for tap in taps:
+            try:
+                if tap['tapnum'] == tapnum:
+                    return tap
+            except:
+                continue
     
 
 class test_admin:
@@ -268,6 +288,18 @@ class test_admin:
             ref.child(node).delete()
     def add_to_db(ref, data):
         ref.push(data)
+
+    def count_dbs(db):
+        pass
+    def get_tap(ref, tapnum):
+        taps = test_admin.get_db(ref)
+        for tap in taps:
+            try:
+                if tap['tapnum'] == tapnum:
+                    return tap
+            except:
+                continue
+
         # Remeber to add descriptions under the methods so users understand the 
         # of the use cases for the methods
     
