@@ -1,6 +1,8 @@
+from itertools import count
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
+from requests import delete
 
 #----------------------------------------------------------------------------------------------------------------------
 # Prod database URL's
@@ -36,7 +38,7 @@ test_bathroom_url_verify = "https://phlask-web-map-test-bathroom-verify.firebase
 #----------------------------------------------------------------------------------------------------------------------
 #creds for initializing firebase admin
 
-# cred = credentials.Certificate('ENTER PATH TO FIREBASE CREDENTIALS HERE')
+cred = credentials.Certificate('/Users/olayinkajimba/Desktop/CodeForPhilly/PHLASK/phlask-admin/admin_oop/phlask.json')
 firebase_admin.initialize_app(cred, { 'databaseURL': 'https://phlask-pyrebase-default-rtdb.firebaseio.com/' })
 #----------------------------------------------------------------------------------------------------------------------
 # initialize firebase admin Prod DB's
@@ -139,6 +141,14 @@ class prod_admin:
             ref.child(node).delete()
     def add_to_db(ref, data):
         ref.push(data)
+    def set_db(ref):
+        ref_db = ref.set()
+        return ref_db
+    def get_count(ref):
+        count = 0
+        for dict in prod_admin.get_db(ref):
+            count += 1
+        return count
     def get_tap(ref, tapnum):
         taps = prod_admin.get_db(ref)
         for tap in taps:
@@ -147,9 +157,16 @@ class prod_admin:
                     return tap
             except:
                 continue
-
-    
-                
+    def delete_tap(ref, tapnum):
+        data=prod_admin.get_db(ref)
+        try:
+            ref.child(str(tapnum)).delete()
+                    
+        except:
+            print("No tap found")
+            print(type(data))
+            # print(type(tap))
+           
 
 
 class beta_admin:
@@ -299,6 +316,7 @@ class test_admin:
                     return tap
             except:
                 continue
+    
 
         # Remeber to add descriptions under the methods so users understand the 
         # of the use cases for the methods

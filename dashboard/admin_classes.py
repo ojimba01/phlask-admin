@@ -85,6 +85,9 @@ class prod_admin:
     def get_db(ref):
         ref_db = ref.get()
         return ref_db
+    def set_db(ref):
+        ref_db = ref.set()
+        return ref_db
     def get_changed_data(ref,url):
         changed = ref.get_if_changed(url)
         changed_dict_list = changed[1]
@@ -139,6 +142,11 @@ class prod_admin:
             ref.child(node).delete()
     def add_to_db(ref, data):
         ref.push(data)
+    def get_count(ref):
+        count = 0
+        for dict in prod_admin.get_db(ref):
+            count += 1
+        return count
 
     def get_tap(ref, tapnum):
         taps = prod_admin.get_db(ref)
@@ -148,6 +156,15 @@ class prod_admin:
                     return tap
             except:
                 continue
+    def delete_tap(ref, tapnum):
+        try:
+            ref.child(str(tapnum)).delete()
+                    
+        except:
+            print("No tap found")
+            # print(type(data))
+            # print(type(tap))
+            
 
 
 class beta_admin:
@@ -211,8 +228,21 @@ class beta_admin:
     def delete_node(ref):
         for node in ref.get():
             ref.child(node).delete()
+    def delete_tap(ref, tapnum):
+        taps = beta_admin.get_db(ref)
+        for tap in taps:
+            try:
+                if tap['tapnum'] == tapnum:
+                    ref.child(tap).delete()
+            except:
+                continue
     def add_to_db(ref, data):
         ref.push(data)
+    def get_count(ref):
+        count = 0
+        for dict in beta_admin.get_db(ref):
+            count += 1
+        return count
     def get_tap(ref, tapnum):
         taps = beta_admin.get_db(ref)
         for tap in taps:
@@ -221,6 +251,7 @@ class beta_admin:
                     return tap
             except:
                 continue
+    
     
 
 class test_admin:
@@ -287,9 +318,11 @@ class test_admin:
     def add_to_db(ref, data):
         ref.push(data)
 
-    def count_dbs(db):
-
-        pass
+    def get_count(ref):
+        count = 0
+        for dict in test_admin.get_db(ref):
+            count += 1
+        return count
     #create a function to get a specific tap from a database
     def get_tap(ref, tapnum):
         taps = test_admin.get_db(ref)

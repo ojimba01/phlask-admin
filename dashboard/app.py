@@ -30,7 +30,7 @@ dashboard = Flask(__name__)
 def connectDB():
     cred = credentials.Certificate("/Users/olayinkajimba/Desktop/CodeForPhilly/PHLASK/phlask-admin/dashboard/phlask.json")
     firebase_admin.initialize_app(cred, {
-        "databaseURL": "https://phlask-pyrebase-default-rtdb.firebaseio.com/" #Your database URL
+        "databaseURL": "https://phlask-web-map-prod-water-live.firebaseio.com/" #Your database URL
     })
     return water_prod
 	
@@ -44,41 +44,45 @@ def main():
         water_prod_3=prod.get_tap(water_prod, 3)
         water_prod_4=prod.get_tap(water_prod, 4)
         taps = [water_prod_1, water_prod_2, water_prod_3, water_prod_4]
-        # for db in water_prod_list:
-        #     taps=[]
-        #     for key, value in db.items():
-        #         if key == "access":
-        #             taps.append(value)
-        #         if key == "address":
-        #             taps.append(value)
-        #         if key == "city":
-        #             taps.append(value)
-        #         if key == "description":
-        #             taps.append(value)
     
 
         return render_template("taplist.html", taps=taps)
-
-
-        # bucket=(water_prod_db["access"], water_prod_db["address"], water_prod_db["city"], water_prod_db["description"])
-        # taps.append(bucket)
         
     except:
-        return render_template("taplist.html", taps = taps)
-        
 
+        pass
 
-# @dashboard.route("/addcar", methods = ['GET','POST'])
-# def addcar():
-#     if request.method == 'GET':
-#         return render_template("addcar.html", car = {})
-#     if request.method == 'POST':
-#         access = int(request.form["access"])
-#         city = request.form["city"]
-#         address = int(request.form["year"])
-#         description = float(request.form["price"])
-#         dbconn.push( { "Access": access, "Address": address, "City": city, "Description": description })
-#         return redirect('/')
+@dashboard.route("/addtap", methods = ['GET','POST'])
+def addtapp():
+    tapcount = prod.get_count(water_prod)
+    if request.method == 'GET':
+        return render_template("addtap.html", tap = {})
+    if request.method == 'POST':
+        access = str(request.form["access"])
+        address = str(request.form["address"])
+        city = str(request.form["city"])
+        description = str(request.form["description"])
+        filteration = str(request.form["filteration"])
+        gp_id = str(request.form["gp_id"])
+        handicap = str(request.form["handicap"])
+        # hours = str(request.form["hours"])
+        latitude = int(request.form["lat"])
+        longitude = int(request.form["lon"])
+        norms = str(request.form["norms"])
+        organization = str(request.form["organization"])
+        permanently_closed = str(request.form["permanently_closed"])
+        phone = str(request.form["phone"])
+        quality = str(request.form["quality"])
+        service= str(request.form["service"])
+        statement = str(request.form["statement"])
+        status = str(request.form["status"])
+        tap_type = str(request.form["tap_type"])
+        tapnum = int(request.form["tapnum"])
+        vessel = str(request.form["vessel"])
+        zip_code = str(request.form["zip_code"])
+
+        water_prod.update({tapcount: { "access": access, "address": address, "city": city, "description": description, "filteration": filteration, "gp_id":gp_id,"handicap":handicap , "latitude": latitude, "longitude": longitude, "norms": norms, "organization": organization, "permanently_closed": permanently_closed, "phone": phone, "quality": quality, "service": service, "statement": statement, "status": status, "tap_type": tap_type, "tapnum": tapnum, "vessel": vessel, "zip_code": zip_code } } )
+        return redirect('/')
 
 # @dashboard.route('/updatecar/<int:id>',methods = ['GET','POST'])
 # def updatecar(id):
@@ -100,16 +104,10 @@ def main():
 #         updateitem.update( { "ID": id, "Name": name, "Year": year, "Price": price } )
 #         return redirect('/')
 
-# @dashboard.route('/deletecar/<int:id>')
-# def deletecar(id):
-#     tblCars = dbconn.get()
-#     for key, value in tblCars.items():
-#         if(value["ID"] == id):
-#             deletekey = key
-#             break
-#     delitem = dbconn.child(deletekey)
-#     delitem.delete()
-#     return redirect('/')
+@dashboard.route('/deletetap/<int:tapnum>')
+def deletetap(tapnum):
+    prod.delete_tap(water_prod, str(tapnum))
+    return redirect('/') 
 
 if(__name__ == "__main__"):
     dbconn = connectDB()

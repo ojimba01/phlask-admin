@@ -3,6 +3,7 @@ from admin_classes import prod_admin as prod
 from admin_classes import beta_admin as beta
 from admin_classes import test_admin as test
 
+
 # initialize the prod_admin class
 water_prod=prod()
 food_prod=prod()
@@ -96,18 +97,29 @@ water_prod_2=prod.get_tap(water_db_prod, 2)
 water_prod_3=prod.get_tap(water_db_prod, 3)
 water_prod_4=prod.get_tap(water_db_prod, 4)
 water_prod_list = [water_prod_1, water_prod_2, water_prod_3, water_prod_4]
-for db in water_prod_list:
-    taps=[]
-    for key, value in db.items():
-        if key == "access":
-            taps.append(value)
-        if key == "address":
-            taps.append(value)
-        if key == "city":
-            taps.append(value)
-        if key == "description":
-            taps.append(value)
-    print(taps)
+# for db in water_prod_list:
+#     taps=[]
+#     for key, value in db.items():
+#         if key == "access":
+#             taps.append(value)
+#         if key == "address":
+#             taps.append(value)
+#         if key == "city":
+#             taps.append(value)
+#         if key == "description":  
+#             taps.append(value)
+    # print(taps)
+# print(water_prod_1)
+# prod.add_to_db(water_db_prod, water_prod_1)
+# prod.set_db(water_db_prod, water_prod_1, 1)
+# water_db_prod.update({"276": water_prod_1})
+
+
+# water_db_prod.child("276").delete()
+
+prod.delete_tap(water_db_prod,275)
+# print(prod.get_db(water_db_prod))
+# print(prod.get_count(water_db_prod))
 
 # for value in example:
 #     taps.append({value["Access"], value["Address"],value["City"], value["Description"]})

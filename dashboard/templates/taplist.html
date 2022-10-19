@@ -25,11 +25,11 @@
             <th scope="col">Filteration</th>
             <th scope="col">GP ID</th>
             <th scope="col">Handicap</th>
-            <th scope="col">Hours</th>
+            <!-- <th scope="col">Hours</th> -->
             <th scope="col">Lat</th>
             <th scope="col">Lon</th>
             <th scope="col">Norms</th>
-            <th scope="col">Organzration</th>
+            <th scope="col">Organization</th>
             <th scope="col">Permanently Closed</th>
             <th scope="col">Phone</th>
             <th scope="col">Quality</th>
@@ -54,11 +54,11 @@
                     <td>{{ tap["filteration"] }}</td>
                     <td>{{ tap["gp_id"] }}</td>
                     <td>{{ tap["handicap"] }}</td>
-                    <td>{{ tap["hours"] }}</td>
+                    <!-- <td>{{ tap["hours"] }}</td> -->
                     <td>{{ tap["lat"] }}</td>
                     <td>{{ tap["lon"] }}</td>
                     <td>{{ tap["norms"] }}</td>
-                    <td>{{ tap["organzration"] }}</td>
+                    <td>{{ tap["organization"] }}</td>
                     <td>{{ tap["permanently_closed"] }}</td>
                     <td>{{ tap["phone"] }}</td>
                     <td>{{ tap["quality"] }}</td>
@@ -69,8 +69,8 @@
                     <td>{{ tap["tapnum"] }}</td>
                     <td>{{ tap["vessel"] }}</td>
                     <td>{{ tap["zip_code"] }}</td>
-                    <td><a class="btn btn-primary" href='updatetap/{{ tap.access }}'>Edit</a></td>
-                    <td><a class="btn btn-primary" href='deletetap/{{ tap.access }}'>Delete</a></td>
+                    <td><a class="btn btn-primary" href='updatetap/{{ tap["tapnum"] }}'>Edit</a></td>
+                    <td><a class="btn btn-primary" href='deletetap/{{ tap["tapnum"]  }}'>Delete</a></td>
                 </tr>
                 {% endfor %}
         </tbody>
