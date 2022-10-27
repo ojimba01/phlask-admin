@@ -139,6 +139,17 @@ class prod_admin:
             ref.child(node).delete()
     def add_to_db(ref, data):
         ref.push(data)
+    def get_tap(ref, tapnum):
+        taps = prod_admin.get_db(ref)
+        try:
+            for tap in taps:
+                try:
+                    if tap['tapnum'] == tapnum:
+                        return tap
+                except:
+                    pass
+        except:
+            pass
 
 
 class beta_admin:

@@ -156,11 +156,9 @@ class prod_admin:
                     if tap['tapnum'] == tapnum:
                         return tap
                 except:
-                    if tap == tapnum:
-                        return tap
-                    continue
+                   pass
         except:
-            return None
+            pass
     def delete_tap(ref, tapnum):
         try:
             ref.child(str(tapnum)).delete()
