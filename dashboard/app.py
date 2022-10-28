@@ -1,10 +1,7 @@
-from cmath import exp
 from flask import Flask, render_template, redirect, url_for, request, jsonify
 import firebase_admin
 from firebase_admin import credentials
-from firebase_admin import db
 from admin_classes import prod_admin as prod, beta_admin as beta, test_admin as test
-# import requests
 
 # initialize the prod_admin class
 water_prod=prod().water_db_live
@@ -131,7 +128,6 @@ def updatetap(tapnum):
         
     if request.method == 'POST':
         try:
-            # tapcount = prod.get_count(water_prod)
             access = str(request.form["access"])
             address = str(request.form["address"])
             city = str(request.form["city"])
@@ -198,7 +194,6 @@ def viewtap(tapnum):
             pass
     if request.method == 'POST':
         try:
-            # tapcount = prod.get_count(water_prod)
             access = str(request.form["access"])
             address = str(request.form["address"])
             city = str(request.form["city"])
@@ -206,7 +201,7 @@ def viewtap(tapnum):
             filteration = str(request.form["filtration"])
             gp_id = str(request.form["gp_id"])
             handicap = str(request.form["handicap"])
-            # hours = str(request.form["hours"])
+            hours = str(request.form["hours"])
             latitude = int(request.form["lat"])
             longitude = int(request.form["lon"])
             norms = str(request.form["norms"])
@@ -251,7 +246,7 @@ def viewtap(tapnum):
             return redirect('/')
             
 
-
+#original code for viewtap route
 @dashboard.route("/oldpage")
 def oldpage():
     try:

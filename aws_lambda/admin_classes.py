@@ -1,7 +1,14 @@
-#Create a admin class for prod, beta, and test
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
+import boto3
+import json
+
+s3 = boto3.resource('s3')
+
+content_object = s3.Object('phlaskkey', 'phlask.json')
+file_content = content_object.get()['Body'].read().decode('utf-8')
+json_data = json.loads(file_content)
 #----------------------------------------------------------------------------------------------------------------------
 # Prod database URL's
 pointer_url = "https://phlask-web-map-food-hours.firebaseio.com/"
@@ -35,8 +42,8 @@ test_bathroom_url_live = "https://phlask-web-map-test-bathroom-live.firebaseio.c
 test_bathroom_url_verify = "https://phlask-web-map-test-bathroom-verify.firebaseio.com/"
 #----------------------------------------------------------------------------------------------------------------------
 #creds for initializing firebase admin
-cred = credentials.Certificate(r'C:\Users\Loaner\Desktop\cfp\phlask-admin\admin_oop\phlask.json')
-# cred = credentials.Certificate('ENTER PATH TO FIREBASE CREDENTIALS HERE')
+
+cred = credentials.Certificate(json_data)
 firebase_admin.initialize_app(cred, { 'databaseURL': 'https://phlask-pyrebase-default-rtdb.firebaseio.com/' })
 #----------------------------------------------------------------------------------------------------------------------
 # initialize firebase admin Prod DB's
@@ -139,17 +146,6 @@ class prod_admin:
             ref.child(node).delete()
     def add_to_db(ref, data):
         ref.push(data)
-    def get_tap(ref, tapnum):
-        taps = prod_admin.get_db(ref)
-        try:
-            for tap in taps:
-                try:
-                    if tap['tapnum'] == tapnum:
-                        return tap
-                except:
-                    pass
-        except:
-            pass
 
 
 class beta_admin:
@@ -280,6 +276,3 @@ class test_admin:
             ref.child(node).delete()
     def add_to_db(ref, data):
         ref.push(data)
-        # Remeber to add descriptions under the methods so users understand the 
-        # of the use cases for the methods
-    

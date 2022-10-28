@@ -165,8 +165,6 @@ class prod_admin:
                     
         except:
             print("No tap found")
-            # print(type(data))
-            # print(type(tap))
     def update_tap(ref, tapnum, data):
         try:
             ref.child(str(tapnum)).update(data)
@@ -251,14 +249,30 @@ class beta_admin:
         for dict in beta_admin.get_db(ref):
             count += 1
         return count
+
     def get_tap(ref, tapnum):
         taps = beta_admin.get_db(ref)
-        for tap in taps:
-            try:
-                if tap['tapnum'] == tapnum:
-                    return tap
-            except:
-                continue
+        try:
+            for tap in taps:
+                try:
+                    if tap['tapnum'] == tapnum:
+                        return tap
+                except:
+                   pass
+        except:
+            pass
+    def delete_tap(ref, tapnum):
+        try:
+            ref.child(str(tapnum)).delete()
+                    
+        except:
+            print("No tap found")
+    def update_tap(ref, tapnum, data):
+        try:
+            ref.child(str(tapnum)).update(data)
+        except:
+            print("No tap found")
+            
     
     
 
@@ -331,15 +345,30 @@ class test_admin:
         for dict in test_admin.get_db(ref):
             count += 1
         return count
-    #create a function to get a specific tap from a database
+
     def get_tap(ref, tapnum):
         taps = test_admin.get_db(ref)
-        for tap in taps:
-            try:
-                if tap['tapnum'] == tapnum:
-                    return tap
-            except:
-                continue
+        try:
+            for tap in taps:
+                try:
+                    if tap['tapnum'] == tapnum:
+                        return tap
+                except:
+                   pass
+        except:
+            pass
+    def delete_tap(ref, tapnum):
+        try:
+            ref.child(str(tapnum)).delete()
+                    
+        except:
+            print("No tap found")
+    def update_tap(ref, tapnum, data):
+        try:
+            ref.child(str(tapnum)).update(data)
+        except:
+            print("No tap found")
+            
 
 
 
