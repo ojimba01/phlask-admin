@@ -31,26 +31,28 @@ def connectDB():
     })
     return water_prod
 
-
-@dashboard.route("/oldpage")
+@dashboard.route("/")
 def main():
     try:
         #Static 4 taps for testing
-        water_prod_1=prod.get_tap(water_prod, 1)
-        water_prod_2=prod.get_tap(water_prod, 2)
-        water_prod_3=prod.get_tap(water_prod, 3)
-        water_prod_4=prod.get_tap(water_prod, 4)
-        taps = [water_prod_1, water_prod_2, water_prod_3, water_prod_4]
+        # water_prod_1=prod.get_tap(water_prod, 1)
+        # water_prod_2=prod.get_tap(water_prod, 2)
+        # water_prod_3=prod.get_tap(water_prod, 3)
+        # water_prod_4=prod.get_tap(water_prod, 4)
+        # taps = [water_prod_1, water_prod_2, water_prod_3, water_prod_4]
+#------------------------------------------------------------------------------------------------#
+    #     # All taps for development
+        taps=[]
+        db_count = prod.get_count(water_prod)
+        for i in range(0, db_count):
+            taps_i = prod.get_tap(water_prod, i)
+            taps.append(taps_i)
 
-        # All taps for development
-        # taps=[]
-        # db_count = prod.get_count(water_prod)
-        # for i in range(0, db_count):
-        #     taps_i = prod.get_tap(water_prod, i)
-        #     taps.append(taps_i)
         return render_template("index.html", taps=taps)
     except:
+        #if tapnum is not found in database on  /test
         pass
+    # return render_template("test.html")
 
 @dashboard.route("/addtap", methods = ['GET','POST'])
 def addtapp():
@@ -66,7 +68,7 @@ def addtapp():
             filteration = str(request.form["filtration"])
             gp_id = str(request.form["gp_id"])
             handicap = str(request.form["handicap"])
-            # hours = str(request.form["hours"])
+            hours = str(request.form["hours"])
             latitude = float(request.form["lat"])
             longitude = float(request.form["lon"])
             norms = str(request.form["norms"])
@@ -92,7 +94,7 @@ def addtapp():
             filteration = str(request.form["filtration"])
             gp_id = str(request.form["gp_id"])
             handicap = str(request.form["handicap"])
-            # hours = str(request.form["hours"])
+            hours = str(request.form["hours"])
             latitude = int(request.form["lat"])
             longitude = int(request.form["lon"])
             norms = str(request.form["norms"])
@@ -108,7 +110,7 @@ def addtapp():
             vessel = str(request.form["vessel"])
             zip_code = str(request.form["zip_code"])
             water_prod.update({tapcount: 
-            { "access": access, "address": address, "city": city, "description": description, "filteration": filteration, "gp_id":gp_id,"handicap":handicap , "latitude": latitude, "longitude": longitude, "norms": norms, "organization": organization, "permanently_closed": permanently_closed, "phone": phone, "quality": quality, "service": service, "statement": statement, "status": status, "tap_type": tap_type, "tapnum": tapnum, "vessel": vessel, "zip_code": zip_code } } )
+            { "access": access, "address": address, "city": city, "description": description, "filteration": filteration, "gp_id":gp_id,"handicap":handicap, "hours":hours , "latitude": latitude, "longitude": longitude, "norms": norms, "organization": organization, "permanently_closed": permanently_closed, "phone": phone, "quality": quality, "service": service, "statement": statement, "status": status, "tap_type": tap_type, "tapnum": tapnum, "vessel": vessel, "zip_code": zip_code } } )
             return redirect('/')
 
 @dashboard.route('/updatetap/<int:tapnum>', methods = ['GET','POST'])
@@ -248,28 +250,27 @@ def viewtap(tapnum):
             { "access": access, "address": address, "city": city, "description": description, "filteration": filteration, "gp_id":gp_id,"handicap":handicap ,"hours":hours , "latitude": latitude, "longitude": longitude, "norms": norms, "organization": organization, "permanently_closed": permanently_closed, "phone": phone, "quality": quality, "service": service, "statement": statement, "status": status, "tap_type": tap_type, "tapnum": tapnum, "vessel": vessel, "zip_code": zip_code } } )
             return redirect('/')
             
-@dashboard.route("/")
-def example():
+
+
+@dashboard.route("/oldpage")
+def main():
     try:
         #Static 4 taps for testing
-        # water_prod_1=prod.get_tap(water_prod, 1)
-        # water_prod_2=prod.get_tap(water_prod, 2)
-        # water_prod_3=prod.get_tap(water_prod, 3)
-        # water_prod_4=prod.get_tap(water_prod, 4)
-        # taps = [water_prod_1, water_prod_2, water_prod_3, water_prod_4]
-#------------------------------------------------------------------------------------------------#
-    #     # All taps for development
-        taps=[]
-        db_count = prod.get_count(water_prod)
-        for i in range(0, db_count):
-            taps_i = prod.get_tap(water_prod, i)
-            taps.append(taps_i)
+        water_prod_1=prod.get_tap(water_prod, 1)
+        water_prod_2=prod.get_tap(water_prod, 2)
+        water_prod_3=prod.get_tap(water_prod, 3)
+        water_prod_4=prod.get_tap(water_prod, 4)
+        taps = [water_prod_1, water_prod_2, water_prod_3, water_prod_4]
 
+        # All taps for development
+        # taps=[]
+        # db_count = prod.get_count(water_prod)
+        # for i in range(0, db_count):
+        #     taps_i = prod.get_tap(water_prod, i)
+        #     taps.append(taps_i)
         return render_template("index.html", taps=taps)
     except:
-        #if tapnum is not found in database on  /test
         pass
-    # return render_template("test.html")
 
 
 if(__name__ == "__main__"):
