@@ -253,7 +253,7 @@ def viewtap(tapnum):
 
 
 @dashboard.route("/oldpage")
-def main():
+def oldpage():
     try:
         #Static 4 taps for testing
         water_prod_1=prod.get_tap(water_prod, 1)
