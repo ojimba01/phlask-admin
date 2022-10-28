@@ -47,3 +47,5 @@ def main():
         pass
     # return render_template("test.html")
 ```
+### Home Screen
+![](https://github.com/ojimba01/phlask-admin/blob/main/readme/dashboard_index.gif)
