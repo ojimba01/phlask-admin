@@ -8,7 +8,7 @@
 - AWS Lambda Function Code Snippet: The code snippet is utilized for the AWS lambda function to make daily updates to the Beta & Test databases
 
 ### How to run web app
-1. Start up terminal and CD in the dashboard directory
+1. Start up terminal and CD in to the dashboard directory
 2. Run pip install -r requirements.txt (Python 2), or pip3 install -r requirements.txt (Python 3)
 3. Then run the following script
 
