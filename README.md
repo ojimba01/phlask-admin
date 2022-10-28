@@ -9,7 +9,8 @@
 
 ### How to run web app
 1. Start up terminal and CD in the dashboard directory
-2. Then run the following script
+2. Run pip install -r requirements.txt (Python 2), or pip3 install -r requirements.txt (Python 3)
+3. Then run the following script
 
 ```terminal
 flask run
@@ -18,7 +19,7 @@ For auto-reload when developing use the following:
 ```terminal
 flask --app app.py --debug run
 ```
-3. Then go to your browser and go to "http://127.0.0.1:5000/" to view and use the dashboard
+4. Then go to your browser and go to "http://127.0.0.1:5000/" to view and use the dashboard
 
 For faster development uncomment the top block and comment out the bottom in app.py
 #### app.py　
