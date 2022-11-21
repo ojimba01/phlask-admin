@@ -1,7 +1,9 @@
-from flask import Flask, render_template, redirect, url_for, send_from_directory, request, jsonify 
+from flask import Flask, render_template, redirect, url_for, send_from_directory, request, jsonify, current_app, g as app_ctx
+
 import firebase_admin
 from firebase_admin import credentials
 from admin_classes import prod_admin as prod, beta_admin as beta, test_admin as test
+import time
 
 # initialize the prod_admin class
 water_prod=prod().water_db_live
@@ -32,18 +34,18 @@ def connectDB():
 def main():
     try:
         #Static 4 taps for testing
-        water_prod_1=prod.get_tap(water_prod, 1)
-        water_prod_2=prod.get_tap(water_prod, 2)
-        water_prod_3=prod.get_tap(water_prod, 3)
-        water_prod_4=prod.get_tap(water_prod, 4)
-        taps = [water_prod_1, water_prod_2, water_prod_3, water_prod_4]
+        # water_prod_1=prod.get_tap(water_prod, 1)
+        # water_prod_2=prod.get_tap(water_prod, 2)
+        # water_prod_3=prod.get_tap(water_prod, 3)
+        # water_prod_4=prod.get_tap(water_prod, 4)
+        # taps = [water_prod_1, water_prod_2, water_prod_3, water_prod_4]
 #------------------------------------------------------------------------------------------------#
     #     # All taps for development
-        # taps=[]
-        # db_count = prod.get_count(water_prod)
-        # for i in range(0, db_count):
-        #     taps_i = prod.get_tap(water_prod, i)
-        #     taps.append(taps_i)
+        taps=[]
+        db_count = prod.get_count(water_prod)
+        for i in range(0, db_count):
+            taps_i = prod.get_tap(water_prod, i)
+            taps.append(taps_i)
 
         return render_template("index.html", taps=taps)
     except:
@@ -271,7 +273,22 @@ def viewtap(tapnum):
     # except:
     #     pass
 
+@dashboard.before_request
+def logging_before():
+    # Store the start time for the request
+    app_ctx.start_time = time.perf_counter()
+
+
+@dashboard.after_request
+def logging_after(response):
+    # Get total time in milliseconds
+    total_time = time.perf_counter() - app_ctx.start_time
+    time_in_ms = int(total_time * 1000)
+    # Log the time taken for the endpoint 
+    current_app.logger.info('%s ms %s %s %s', time_in_ms, request.method, request.path, dict(request.args))
+    return response
+
 
 if(__name__ == "__main__"):
     dbconn = connectDB()
-    dashboard.run()
+    dashboard.run(debug=False, host='0.0.0.0')

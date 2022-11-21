@@ -1,6 +1,7 @@
 # Import all the modules
 from re import T
 from admin_classes import prod_admin as prod
+from admin_classes import pointer_init
 # from admin_classes import beta_admin as beta
 # from admin_classes import test_admin as test
 
@@ -21,14 +22,39 @@ food_db=food.food_db_live
 
 # print(prod.get_tap(water_db, 1))
 
-db = prod.get_db(water_db)
-one = 1
-try:
-    for tap in db:
-        try:
-            if tap['tapnum'] == one:
-                print(tap) 
-        except:
-            pass
-except:
-    pass
+# create a function to check how long it takes to run a function
+def time_it(func):
+    def wrapper(*args, **kwargs):
+        import time
+        start = time.perf_counter()
+        result = func(*args, **kwargs)
+        end = time.perf_counter()
+        run_time = end - start
+        print(f"Finished {func.__name__!r} in {run_time:.4f} secs")
+        return result
+    return wrapper
+
+#test the function
+@time_it
+def time_check():
+    taps=[]
+    # db_count = prod.get_count(water_db)
+    for i in range(0, 274):
+        taps_i = prod.get_tap(water_db, i)
+        taps.append(taps_i)
+    return taps[1]
+
+# print(time_check())
+# print("----------------------------------------------")
+
+# create a listener to check for changes in the database
+def on_change(change):
+    if change.type.name == 'ADDED':
+        print(f"New data: {change.document.id}")
+    elif change.type.name == 'MODIFIED':
+        print(f"Modified data: {change.document.id}")
+    elif change.type.name == 'REMOVED':
+        print(f"Removed data: {change.document.id}")
+
+
+print(prod.db_listener(pointer_init,"https://phlask-web-map-prod-water-live.firebaseio.com/"))

@@ -4,7 +4,7 @@ from firebase_admin import credentials
 from firebase_admin import db
 #----------------------------------------------------------------------------------------------------------------------
 # Prod database URL's
-pointer_url = "https://phlask-web-map-food-hours.firebaseio.com/"
+pointer_url = 'https://phlask-pyrebase-default-rtdb.firebaseio.com/'
 prod_water_url_live = "https://phlask-web-map-prod-water-live.firebaseio.com/"
 prod_water_url_verify = "https://phlask-web-map-prod-water-verify.firebaseio.com/"
 prod_food_url_live = 'https://phlask-web-map-prod-food-live.firebaseio.com/'
@@ -35,7 +35,7 @@ test_bathroom_url_live = "https://phlask-web-map-test-bathroom-live.firebaseio.c
 test_bathroom_url_verify = "https://phlask-web-map-test-bathroom-verify.firebaseio.com/"
 #----------------------------------------------------------------------------------------------------------------------
 #creds for initializing firebase admin
-cred = credentials.Certificate(r'C:\Users\Loaner\Desktop\cfp\phlask-admin\admin_oop\phlask.json')
+cred = credentials.Certificate(r'C:\Users\Loaner\Desktop\cfp\phlask-admin\admin\phlask.json')
 # cred = credentials.Certificate('ENTER PATH TO FIREBASE CREDENTIALS HERE')
 firebase_admin.initialize_app(cred, { 'databaseURL': 'https://phlask-pyrebase-default-rtdb.firebaseio.com/' })
 #----------------------------------------------------------------------------------------------------------------------
@@ -178,6 +178,12 @@ class prod_admin:
             ref.child(str(tapnum)).update(data)
         except:
             print("No tap found")
+
+    def db_listener(ref, url):
+        # for 30 seconds listen for changes in the database
+        changed = ref.listen(url, timeout=30)
+        changed_dict_list = changed[1]
+        return changed_dict_list
             
 
 
@@ -283,7 +289,14 @@ class beta_admin:
             ref.child(str(tapnum)).update(data)
         except:
             print("No tap found")
-            
+    def db_listener(ref, url):
+        # for 30 seconds listen for changes in the database
+        changed = ref.listen(url, timeout=30)
+        changed_dict_list = changed[1]
+        return changed_dict_list
+        
+        
+
     
 
 class test_admin:
