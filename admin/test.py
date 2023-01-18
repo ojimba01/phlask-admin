@@ -1,5 +1,4 @@
 # Import all the modules
-from re import T
 from admin_classes import prod_admin as prod
 from admin_classes import pointer_init
 # from admin_classes import beta_admin as beta
@@ -47,14 +46,7 @@ def time_check():
 # print(time_check())
 # print("----------------------------------------------")
 
-# create a listener to check for changes in the database
-def on_change(change):
-    if change.type.name == 'ADDED':
-        print(f"New data: {change.document.id}")
-    elif change.type.name == 'MODIFIED':
-        print(f"Modified data: {change.document.id}")
-    elif change.type.name == 'REMOVED':
-        print(f"Removed data: {change.document.id}")
 
 
-print(prod.db_listener(pointer_init,"https://phlask-web-map-prod-water-live.firebaseio.com/"))
+print(prod.get_tap(water_db, 1))
+

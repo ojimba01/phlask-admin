@@ -40,7 +40,7 @@ def main():
         # water_prod_4=prod.get_tap(water_prod, 4)
         # taps = [water_prod_1, water_prod_2, water_prod_3, water_prod_4]
 #------------------------------------------------------------------------------------------------#
-    #     # All taps for development
+         # All taps for development
         taps=[]
         db_count = prod.get_count(water_prod)
         for i in range(0, db_count):
@@ -287,7 +287,7 @@ def logging_after(response):
     # Log the time taken for the endpoint 
     current_app.logger.info('%s ms %s %s %s', time_in_ms, request.method, request.path, dict(request.args))
     return response
-
+# once database is loaded cache it
 
 if(__name__ == "__main__"):
     dbconn = connectDB()
