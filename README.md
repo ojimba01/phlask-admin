@@ -1,6 +1,6 @@
 # Phlask Admin
 ### THIS IS REPO HAS BEEN MOVED TO A NEW LOACATION AND IS NOW DEPRECATED. PLEASE REFER TO THE NEW REPO BELOW
-###[Phlask Data Handlers](https://github.com/phlask/phlask-data-handlers)
+### [Phlask Data Handlers](https://github.com/phlask/phlask-data-handlers)
 
 ### Features
 - Flask Firebase CRUD Dashboard: Allows developers to easily view, update, delete, and sort/filter for taps
